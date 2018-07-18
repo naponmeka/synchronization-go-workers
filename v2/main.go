@@ -38,7 +38,7 @@ dowork:
 
 func main() {
 	fmt.Println("Worker v2 started.")
-	rabbitmqURI := "amqp://root:pass@localhost:5672/"
+	rabbitmqURI := "amqp://root:root@localhost:5672/"
 	conn, ch, _, jobs := amqputil.CreateConsumerConnection(rabbitmqURI, "v2_jobs", 1)
 	defer func() {
 		conn.Close()
