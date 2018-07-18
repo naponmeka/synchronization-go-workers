@@ -110,7 +110,8 @@ func main() {
 				if cancelJob.ConsumerName != cancelQueue.Name && cancelJob.Command == currentCommand {
 					// Going to Cancelled routine
 					// (New job running on diff machine)
-					fmt.Println("stop")
+					fmt.Println("Stop current job, same job with new state running in different machine")
+					time.Sleep(3 * time.Second)
 					close(stopChan)
 					stopChan = make(chan bool)
 				}

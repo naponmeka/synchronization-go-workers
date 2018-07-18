@@ -36,7 +36,7 @@ func dowork(j amqp.Delivery) {
 	p := randPrinter()
 	for i := 0; i < 100; i++ {
 		time.Sleep(1 * time.Second)
-		p.Println(string(j.Body))
+		p.Println(fmt.Sprintf("Area: %s, People #%d", string(j.Body), i))
 	}
 	j.Ack(false)
 }

@@ -105,8 +105,9 @@ func main() {
 						Body:        cancelBytes,
 					})
 				if stopChan, exist := runningRoutines[cmd]; exist {
-					fmt.Println("Stop routine with same command(same machine)", cancelJob.Command)
+					fmt.Println("Stop routine (same job with new state running on same machine)", cancelJob.Command)
 					close(stopChan)
+					time.Sleep(3 * time.Second)
 				}
 				runningRoutines[cmd] = make(chan bool)
 				go dowork(j, runningRoutines[cmd], doneChan)
@@ -115,9 +116,10 @@ func main() {
 				json.Unmarshal(cj.Body, &cancelJob)
 				if cancelJob.ConsumerName != cancelQueue.Name {
 					if routineChan, exist := runningRoutines[cancelJob.Command]; exist {
-						fmt.Println("Stop routine with same command(diff machine)", cancelJob.Command)
+						fmt.Println("Stop routine (same job with new state running on differrent machine)", cancelJob.Command)
 						close(routineChan)
 						delete(runningRoutines, cancelJob.Command)
+						time.Sleep(3 * time.Second)
 					}
 				}
 			}
