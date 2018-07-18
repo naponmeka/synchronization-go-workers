@@ -16,7 +16,6 @@ func init() {
 
 func randPrinter() (c *color.Color) {
 	num := rand.Intn(5)
-	fmt.Println(num)
 	if num == 1 {
 		c = color.New(color.FgRed, color.Bold)
 	} else if num == 2 {
